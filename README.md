@@ -1,3 +1,17 @@
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX", "output/HTML-CSS"],
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+      processEscapes: true
+    },
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
 # LDAGibbsSampling
 
 doc目录中八卦那片文章对lda所涉及到的数学知识做了一个铺垫，另外一篇gibbs采样的文章分析了整个代码实现的思路。
@@ -13,6 +27,7 @@ as described in
 Full text: http://www.pnas.org/content/101/suppl.1/5228
 
 todo:https://github.com/elplatt/lda-gibbs-em 这个里面还包含了em迭代实现。
+
 ---
 
 三种类型的主题模型：LSI，PLSI，LDA。LSI为$A_{m*n}=U_{m*k}*\Sigma_{k*k}*V_{k*n}$，其中A代表m个term、n篇文章，U代表m个term、k个topic，V代表k个topic、n篇文章。开源库[gensim](https://github.com/mahatmaWM/gensim)均有实现。
@@ -25,7 +40,8 @@ PLSI，LDA讲解的比较清楚的博文[通俗理解LDA主题模型](http://blo
 
 理解lda参数训练的内幕。
 第一步，理解蒙特卡洛方法，其作用是在计算机中得到任意分布的一个样本（一般采样次数越多越准确）。核心思想是使用随机数（或更常见的伪随机数0-1均匀分布）来解决一些复杂的计算问题。
-第二步，理解马尔科夫链以及矩阵的极限等概念，马氏链要收敛，但是采样多少次才会收敛，在工程实践中我们更多的靠经验和对数据的观察来指定 Gibbs Sampling 中的 burn-in 的迭代需要多少次。[随机采样和随机模拟：吉布斯采样Gibbs Sampling](http://blog.csdn.net/pipisorry/article/details/51373090)，[MCMC](http://www.ctolib.com/topics-105669.html)
+第二步，理解马尔科夫链以及矩阵的极限等概念，马氏链要收敛，但是采样多少次才会收敛，在工程实践中我们更多的靠经验和对数据的观察来指定 Gibbs Sampling 中的 burn-in 的迭代需要多少次。
+[随机采样和随机模拟：吉布斯采样Gibbs Sampling](http://blog.csdn.net/pipisorry/article/details/51373090)，[MCMC](http://www.ctolib.com/topics-105669.html)
 
 ---
 
