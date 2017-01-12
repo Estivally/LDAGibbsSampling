@@ -39,7 +39,8 @@ class LDASampler(object):
             to_int = {word: w for (w, word) in enumerate(self.vocab)}
 
             # count data for Gibbs sampling         
-            self.nt = [0] * self.T  # topic个数
+            # self.nt = [0] * self.T  # topic个数
+            self.nt = [0] * self.D
             self.nd = [len(doc) for doc in self.docs]  # 记录每个文档有多少个term
             self.nwt = [[0] * self.T for _ in self.vocab]  # 矩阵V*K，term与topic
             self.ndt = [[0] * self.T for _ in self.docs]  # 矩阵M*K，doc与topic
@@ -67,10 +68,10 @@ class LDASampler(object):
                 self.nwt[w][t] += 1  # 矩阵V*K，term与topic
                 self.ndt[d][t] += 1  # 矩阵M*K，doc与topic
 
-                # pp.pprint(self.nt)
-                # pp.pprint(self.nd)
-                # pp.pprint(self.nwt)
-                # pp.pprint(self.ndt)
+            # pp.pprint(self.nt)
+            # pp.pprint(self.nd)
+            # pp.pprint(self.nwt)
+            # pp.pprint(self.ndt)
 
     def to_json(self):
         """
@@ -101,8 +102,8 @@ class LDASampler(object):
         for t in range(self.T):
             unnorm_ps.append(self.f(d, w, t))
 
-        print 'unnorm_ps'
-        pp.pprint(unnorm_ps)
+        # print 'unnorm_ps'
+        # pp.pprint(unnorm_ps)
         r = random.random() * sum(unnorm_ps)
         new_t = self.T - 1
         for i in range(self.T):
@@ -122,6 +123,11 @@ class LDASampler(object):
         A quantity proportional to the probability of topic t being assigned
         to word w in document d.
         """
+        # print self.ndt[d][t]
+        # print self.nwt[w][t]
+        # print d
+        # print self.nt[d],d
+        # print self.nt[t]
         return ((self.ndt[d][t] + self.alpha) * (self.nwt[w][t] + self.beta)) / \
                ((self.nt[d] + self.T * self.alpha) * (self.nt[t] + self.W * self.beta))
 

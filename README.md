@@ -1,8 +1,7 @@
 # LDAGibbsSampling
-<<<<<<< HEAD
 
 doc目录中八卦那片文章对lda所涉及到的数学知识做了一个铺垫，另外一篇gibbs采样的文章分析了整个代码实现的思路。
-=======
+
 Yet another Python implementation of collapsed Gibbs sampling for Latent 
 Dirichlet Allocation 
 (http://en.wikipedia.org/wiki/Latent_Dirichlet_allocation),
