@@ -107,7 +107,7 @@ class LDASampler(object):
         A quantity proportional to the probability of topic t being assigned
         to word w in document d.
         """
-        # 分母中另外一项为常数，所以省去
+        # 参考论文中分母中另外一项为常数，所以这里省去
         return ((self.ndt[d][t] + self.alpha) * (self.nwt[w][t] + self.beta)) / (self.nt[t] + self.W * self.beta)
 
     def pw_z(self, w, t):

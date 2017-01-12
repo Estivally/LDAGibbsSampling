@@ -4,7 +4,7 @@ import os
 import lda
 
 # 读入训练文章 ['cat duck', 'cat dog']
-foldpath = '/Users/wangming/workspace/temp/LDAGibbsSampling/data/'
+foldpath = '/Users/wangming/workspace/LDAGibbsSampling/data/'
 docs = [' '.join(open(foldpath + f, 'r').readlines()) for f in os.listdir(foldpath)]
 
 # 切词
