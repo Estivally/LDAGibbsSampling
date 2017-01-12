@@ -39,16 +39,10 @@ class LDASampler(object):
             to_int = {word: w for (w, word) in enumerate(self.vocab)}
 
             # count data for Gibbs sampling         
-            # self.nt = [0] * self.T  # topic个数
-            self.nt = [0] * self.D
+            self.nt = [0] * self.T  # topic个数，每个数字表示该topic出现次数
             self.nd = [len(doc) for doc in self.docs]  # 记录每个文档有多少个term
-            self.nwt = [[0] * self.T for _ in self.vocab]  # 矩阵V*K，term与topic
-            self.ndt = [[0] * self.T for _ in self.docs]  # 矩阵M*K，doc与topic
-
-            # pp.pprint(self.nt)
-            # pp.pprint(self.nd)
-            # pp.pprint(self.nwt)
-            # pp.pprint(self.ndt)
+            self.nwt = [[0] * self.T for _ in self.vocab]  # 矩阵V*K，term与topic，每个数字表示该序号的term被分到该topic的次数
+            self.ndt = [[0] * self.T for _ in self.docs]  # 矩阵M*K，doc与topic，每个数字表示该doc包含该topic的次数
 
             # initialize topic assignments and counts
             self.assignments = []
@@ -67,11 +61,6 @@ class LDASampler(object):
                 self.nt[t] += 1  # 统计topic出现的次数
                 self.nwt[w][t] += 1  # 矩阵V*K，term与topic
                 self.ndt[d][t] += 1  # 矩阵M*K，doc与topic
-
-            # pp.pprint(self.nt)
-            # pp.pprint(self.nd)
-            # pp.pprint(self.nwt)
-            # pp.pprint(self.ndt)
 
     def to_json(self):
         """
@@ -101,9 +90,6 @@ class LDASampler(object):
         unnorm_ps = []
         for t in range(self.T):
             unnorm_ps.append(self.f(d, w, t))
-
-        # print 'unnorm_ps'
-        # pp.pprint(unnorm_ps)
         r = random.random() * sum(unnorm_ps)
         new_t = self.T - 1
         for i in range(self.T):
@@ -123,13 +109,7 @@ class LDASampler(object):
         A quantity proportional to the probability of topic t being assigned
         to word w in document d.
         """
-        # print self.ndt[d][t]
-        # print self.nwt[w][t]
-        # print d
-        # print self.nt[d],d
-        # print self.nt[t]
-        return ((self.ndt[d][t] + self.alpha) * (self.nwt[w][t] + self.beta)) / \
-               ((self.nt[d] + self.T * self.alpha) * (self.nt[t] + self.W * self.beta))
+        return ((self.ndt[d][t] + self.alpha) * (self.nwt[w][t] + self.beta)) / (self.nt[t] + self.W * self.beta)
 
     def pw_z(self, w, t):
         """
@@ -147,23 +127,12 @@ class LDASampler(object):
         """
         Return estimated phi based on predictive distribution over words.
         """
-        # print 'estimate_phi'
-        # pp.pprint(self.nt)
-        # pp.pprint(self.nd)
-        # pp.pprint(self.nwt)
-        # pp.pprint(self.ndt)
-
         return [[self.pw_z(w, t) for w in range(self.W)] for t in range(self.T)]
 
     def estimate_theta(self):
         """
         Return estimated theta based on predictive distribution over topics.
         """
-        # print 'estimate_theta'
-        # pp.pprint(self.nt)
-        # pp.pprint(self.nd)
-        # pp.pprint(self.nwt)
-        # pp.pprint(self.ndt)
         return [[self.pz_d(d, t) for t in range(self.T)] for d in range(self.D)]
 
     def topic_keys(self, num_displayed=10):
