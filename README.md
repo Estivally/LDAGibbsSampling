@@ -9,6 +9,7 @@ as described in
 
 Full text: http://www.pnas.org/content/101/suppl.1/5228
 
+todo:https://github.com/elplatt/lda-gibbs-em 这个里面还包含了em迭代实现。
 ---
 
 三种类型的主题模型：LSI，PLSI，LDA。LSI为$A_{m*n}=U_{m*k}*\Sigma_{k*k}*V_{k*n}$，其中A代表m个term、n篇文章，U代表m个term、k个topic，V代表k个topic、n篇文章。开源库[gensim](https://github.com/mahatmaWM/gensim)均有实现。
