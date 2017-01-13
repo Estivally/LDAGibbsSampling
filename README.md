@@ -13,7 +13,7 @@
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
 # 备忘
 
-要点：doc目录中八卦那篇文章对lda所涉及到的数学知识做了一个总结，另外一篇讲gibbs采样的分析也很详细。
+要点：doc目录中八卦那篇文章对lda所涉及到的数学知识做了一个总结（以及这个网页版本[LDA-math-文本建模](http://cos.name/2013/03/lda-math-text-modeling/)），另外一篇讲gibbs采样的分析也很详细。
 本代码的实现参考[论文](http://www.pnas.org/content/101/suppl_1/5228.full.pdf)
 
 其他：
@@ -24,6 +24,8 @@
 [MCMC](http://www.ctolib.com/topics-105669.html)
 
 另外这个实现 https://github.com/elplatt/lda-gibbs-em 还包含了em迭代过程。
+[Peacock LDA分布式实现](http://forum.ai100.com.cn/blog/thread/ml-2015-03-03-3816245109043572/)
+[LDA工程实践之算法篇](http://www.flickering.cn/nlp/2014/07/lda%E5%B7%A5%E7%A8%8B%E5%AE%9E%E8%B7%B5%E4%B9%8B%E7%AE%97%E6%B3%95%E7%AF%87-1%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0%E6%AD%A3%E7%A1%AE%E6%80%A7%E9%AA%8C%E8%AF%81/)
 
 ---
 
