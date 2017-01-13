@@ -11,12 +11,19 @@
   });
 </script>
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+# 备忘
 
-# LDAGibbsSampling
+要点：doc目录中八卦那篇文章对lda所涉及到的数学知识做了一个总结，另外一篇讲gibbs采样的分析也很详细。
+本代码的实现参考[论文](http://www.pnas.org/content/101/suppl_1/5228.full.pdf)
 
-doc目录中八卦那片文章对lda所涉及到的数学知识做了一个铺垫，另外一篇gibbs采样的分析也很详细。
-本代码的实现参考http://www.pnas.org/content/101/suppl_1/5228.full.pdf
-另外这个实现更丰富https://github.com/elplatt/lda-gibbs-em还包含了em迭代实现。
+其他：
+理解gibbs lda参数训练的内幕。
+第一步，理解蒙特卡洛方法，其作用是在计算机中得到任意分布的一个样本（一般采样次数越多越准确）。核心思想是使用随机数（或更常见的伪随机数0-1均匀分布）来解决一些复杂的计算问题。
+第二步，理解马尔科夫链以及矩阵的极限等概念，马氏链要收敛，但是采样多少次才会收敛，在工程实践中我们更多的靠经验和对数据的观察来指定 Gibbs Sampling 中的 burn-in 的迭代需要多少次。
+[随机采样和随机模拟：吉布斯采样Gibbs Sampling](http://blog.csdn.net/pipisorry/article/details/51373090)
+[MCMC](http://www.ctolib.com/topics-105669.html)
+
+另外这个实现 https://github.com/elplatt/lda-gibbs-em 还包含了em迭代过程。
 
 ---
 
@@ -28,13 +35,6 @@ PLSI，LDA讲解的比较清楚的博文[通俗理解LDA主题模型](http://blo
 
 ---
 
-理解lda参数训练的内幕。
-第一步，理解蒙特卡洛方法，其作用是在计算机中得到任意分布的一个样本（一般采样次数越多越准确）。核心思想是使用随机数（或更常见的伪随机数0-1均匀分布）来解决一些复杂的计算问题。
-第二步，理解马尔科夫链以及矩阵的极限等概念，马氏链要收敛，但是采样多少次才会收敛，在工程实践中我们更多的靠经验和对数据的观察来指定 Gibbs Sampling 中的 burn-in 的迭代需要多少次。
-[随机采样和随机模拟：吉布斯采样Gibbs Sampling](http://blog.csdn.net/pipisorry/article/details/51373090)
-[MCMC](http://www.ctolib.com/topics-105669.html)
-
----
 em与gibbs的区别？？
 EM算法的一般步骤为：
 
