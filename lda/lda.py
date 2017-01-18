@@ -7,17 +7,6 @@ import collections
 
 
 class LDASampler(object):
-    """
-    A Gibbs sampler for collapsed LDA. 
-
-    Allows approximate sampling from the posterior distribution over
-    assignments of topic labels to words in a collapsed LDA model, which is
-    derived from LDA by integrating out the topic and document parameters. 
-    These parameters are estimated later from a particular assignment.
-    See Griffiths and Steyvers (2004): 
-    http://www.pnas.org/content/101/suppl.1/5228.full.pdf
-    """
-
     def __init__(self, docs=None, num_topics=None, alpha=0.1, beta=0.1, state=None):
         """
         Initialize sampler for the given data or load previous run.
@@ -25,8 +14,8 @@ class LDASampler(object):
         if state:
             self.__dict__ = json.loads(state)
         else:
-            self.alpha = float(alpha)
-            self.beta = float(beta)
+            self.alpha = float(alpha) # symmetric
+            self.beta = float(beta) # symmetric
             self.T = int(num_topics)
             self.docs = docs
             self.vocab = list(set(word for doc in self.docs for word in doc))
@@ -37,8 +26,8 @@ class LDASampler(object):
             to_int = {word: w for (w, word) in enumerate(self.vocab)}
 
             # count data for Gibbs sampling         
-            self.nt = [0] * self.T  # topic个数，每个数字表示该topic出现次数
-            self.nd = [len(doc) for doc in self.docs]  # 记录每个文档有多少个term
+            self.nt = [0] * self.T  # 长度为topic个数，每个item表示该topic出现次数
+            self.nd = [len(doc) for doc in self.docs]  # 长度为文档个数，每个item为该文档有多少个term
             self.nwt = [[0] * self.T for _ in self.vocab]  # 矩阵V*K，term与topic，每个数字表示该序号的term被分到该topic的次数
             self.ndt = [[0] * self.T for _ in self.docs]  # 矩阵M*K，doc与topic，每个数字表示该doc包含该topic的次数
 
